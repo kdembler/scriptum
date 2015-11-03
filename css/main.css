@@ -6,6 +6,16 @@ nav ul li .hover-lock:hover {
   background-color: transparent;
 }
 
+.modal-login {
+  width: 40%;
+}
+
+@media only screen and (max-width: 700px) {
+    .modal-login {
+        width: 80%;
+    }
+}
+
 .parallax-container {
   min-height: 380px;
   line-height: 0;
