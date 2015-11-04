@@ -1,5 +1,5 @@
-<!DOCTYPE html ng-app="scriptumApp">
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" ng-app="scriptumApp">
 
 <head>
   <meta charset="UTF-8">
@@ -10,17 +10,43 @@
   <link rel="stylesheet" type="text/css" href="css/build.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!-- <link rel="stylesheet" type="text/css" href="css/forms.css"> -->
+  <!-- scripts -->
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/materialize.js" type="text/javascript"></script>
+  <script src="js/angular/angular.js"></script>
+  <script src="js/angular-scroll.js"></script>
+  <script src="js/angular-parallax.js"></script>
+  <script src="js/angular-materialize.js"></script>
+  <script src="js/controllers.js" type="text/javascript"></script>
 </head>
 
-<body ng-controller="bodyCtrl">
+<body ng-controller="MainCtrl"><div id="login-modal" class="modal modal-login">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input id="login-input" type="text" class="validate">
+          <label for="login-input">Identifier</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">vpn_key</i>
+          <input id="password-input" type="password" class="validate">
+          <label for="password-input">Password</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn indigo modal-action modal-close waves-effect">login</a>
+      <a href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
+    </div>
+  </div>
   <div id="header">
     <nav>
       <div class="nav-wrapper indigo lighten-1">
         <a href="#!" class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <a href="#login-modal" class="waves-effect waves-light waves-block hover-lock modal-trigger" style="margin-right: 10px;"><i class="material-icons">lock_outline</i></a>
+            <a href="#login-modal" class="waves-effect waves-light waves-block large" ng-mouseenter="lockIcon='lock_open'" ng-mouseleave="lockIcon='lock_outline'" modal><i class="material-icons">{{ lockIcon }}</i></a>
           </li>
         </ul>
       </div>
@@ -28,16 +54,16 @@
     <div id="index-banner" class="parallax-container">
       <div class="section no-pad-bot">
         <div class="container">
-          <h1 class="header center brown-text text-lighten-1">Welcome to Scriptum.</h1>
+        <img class="parallax mine" src="images/background.jpg" du-parallax y="background" alt="">
+          <h1 class="header center indigo-text text-lighten-1">Welcome to Scriptum.</h1>
           <div class="row center">
             <h5 class="header col s12 light grey-text text-darken-4">A website where you can post your shit.</h5>
           </div>
           <div class="row center">
-            <a id="getstarted-button" class="btn-large waves-effect waves-light lighten-1">Get Started</a>
+            <a id="getstarted-button" class="btn-large waves-effect waves-light lighten-1" ng-click="scrollToContent()">Get Started</a>
           </div>
         </div>
       </div>
-      <div class="parallax"><img src="images/background.jpg" alt="Parallax"></div>
     </div>
   </div>
   <div id="content">
@@ -156,14 +182,13 @@
       </div>
     </div>
   </div>
-
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large z-depth-1 indigo">
       <i class="material-icons">more_vert</i>
     </a>
     <ul>
       <li>
-        <a id="scrolltop-button" class="btn-floating blue"><i class="material-icons">expand_less</i></a>
+        <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
       </li>
       <li>
         <a class="btn-floating red darken-1" href="#add"><i class="material-icons">add</i></a>
@@ -171,34 +196,6 @@
     </ul>
   </div>
 
-  <div id="login-modal" class="modal modal-login">
-    <div class="modal-content">
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">account_circle</i>
-            <input id="login-input" type="text" class="validate">
-            <label for="login-input">Identifier</label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">vpn_key</i>
-            <input id="password-input" type="password" class="validate">
-            <label for="password-input">Password</label>
-        </div>
-
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="btn indigo modal-action modal-close waves-effect">login</a>
-      <a href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
-    </div>
-  </div>
-  <!-- scripts -->
-  <script src="js/jquery.js" type="text/javascript"></script>
-  <script src="js/materialize.js" type="text/javascript"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-  <script src="js/main.js" type="text/javascript"></script>
-  <script src="js/controllers.js" type="text/javascript"></script>
 </body>
 
 </html>
