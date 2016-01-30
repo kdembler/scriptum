@@ -7,6 +7,11 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
+var mongoose = require('mongoose');
+require('./models/Post');
+require('./models/Comment');
+require('./models/User');
+
 var app = express();
 
 // view engine setup
@@ -56,5 +61,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
+mongoose.connect('mongodb://localhost/scriptum');
 
 module.exports = app;
