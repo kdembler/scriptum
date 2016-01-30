@@ -12,6 +12,9 @@ require('./models/Post');
 require('./models/Comment');
 require('./models/User');
 
+var passport = require('passport');
+require('./config/passport');
+
 var app = express();
 
 // view engine setup
