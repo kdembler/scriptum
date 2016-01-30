@@ -56,4 +56,11 @@ PostSchema.methods.dislike = function(user, cb) {
     this.save(cb);
 };
 
+PostSchema.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.likes;
+    delete obj.dislikes;
+    return obj;
+};
+
 mongoose.model('Post', PostSchema);
