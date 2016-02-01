@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scriptum | Post your shit</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+  <script src="javascripts/scriptumApp.js"></script>
+</head>
+<body ng-app="scriptumApp" ng-controller="TestCtrl">
+  <p>{{test}}</p>
+</body>
 </html>
