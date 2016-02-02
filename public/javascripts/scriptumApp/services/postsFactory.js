@@ -1,4 +1,4 @@
-var PostFac = function($http, auth) {
+var PostsFac = function($http, auth) {
     var fac = {
         posts: []
     };
@@ -59,6 +59,6 @@ var PostFac = function($http, auth) {
     return fac;
 };
 
-PostFac.$inject = ['$http', 'auth'];
+PostsFac.$inject = ['$http', 'auth'];
 
-angular.module('scriptumApp').factory('post', PostFac);
+angular.module('scriptumApp').factory('posts', PostsFac);
