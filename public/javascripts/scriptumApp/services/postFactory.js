@@ -56,6 +56,7 @@ var PostFac = function($http, auth) {
                 comment = data;
             });
     };
+    return fac;
 };
 
 PostFac.$inject = ['$http', 'auth'];
