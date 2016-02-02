@@ -39,6 +39,22 @@ router.param('comment', function(req, res, next, id) {
     });
 });
 
+router.get('/posts', auth, function(req, res, next) {
+    Post.find().populate('comments').exec(function(err, posts) {
+        if (err) return next(err);
+
+        posts.forEach(function(post) {
+            if(post.isLiking())
+                post.liking = 1;
+            else if(post.isDisliking())
+                post.liking = -1;
+            else
+                post.liking = 0;
+        });
+        res.json(posts);
+    });
+});
+
 router.get('/posts', function(req, res, next) {
     Post.find().populate('comments').exec(function(err, posts) {
         if (err) return next(err);
@@ -58,6 +74,20 @@ router.post('/posts', auth, function(req, res, next) {
     });
 });
 
+router.get('/posts/:post', auth, function(req, res, next) {
+    req.post.populate('comments', function(err, post) {
+        if (err) return next(err);
+
+        if(post.isLiking(req.payload))
+                post.liking = 1;
+            else if(post.isDisliking(req.payload))
+                post.liking = -1;
+            else
+                post.liking = 0;
+        res.json(post);
+    });
+});
+
 router.get('/posts/:post', function(req, res, next) {
     req.post.populate('comments', function(err, post) {
         if (err) return next(err);
@@ -70,6 +100,10 @@ router.put('/posts/:post/like', auth, function(req, res, next) {
     req.post.like(req.payload, function(err, post) {
         if (err) return next(err);
 
+        if(post.isLiking(req.payload))
+            post.liking = 1;
+        else
+            post.liking = 0;
         res.json(post);
     });
 });
@@ -78,6 +112,10 @@ router.put('/posts/:post/dislike', auth, function(req, res, next) {
     req.post.dislike(req.payload, function(err, post) {
         if (err) return next(err);
 
+        if(post.isDisliking(req.payload))
+            post.liking = -1;
+        else
+            post.liking = 0;
         res.json(post);
     });
 });
@@ -103,13 +141,10 @@ router.put('/posts/:post/comments/:comment/like', auth, function(req, res, next)
     req.comment.like(req.payload, function(err, comment) {
         if (err) return next(err);
 
-        res.json(comment);
-    });
-});
-
-router.put('/posts/:post/comments/:comment/dislike', auth, function(req, res, next) {
-    req.comment.dislike(req.payload, function(err, comment) {
-        if (err) return next(err);
+        if(comment.isLiking(req.payload))
+            comment.liking = 1;
+        else
+            comment.liking = 0;
 
         res.json(comment);
     });

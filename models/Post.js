@@ -56,6 +56,21 @@ PostSchema.methods.dislike = function(user, cb) {
     this.save(cb);
 };
 
+PostChema.methods.isLiking = function(user) {
+    if (~this.likes.indexOf(user._id))
+        return true;
+    else
+        return false;
+};
+
+PostChema.methods.isDisliking = function(user) {
+    if (~this.dislikes.indexOf(user._id))
+        return true;
+    else
+        return false;
+};
+
+
 PostSchema.methods.toJSON = function() {
     var obj = this.toObject();
     delete obj.likes;

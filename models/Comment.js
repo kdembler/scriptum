@@ -17,41 +17,24 @@ var CommentSchema = new mongoose.Schema({
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
-    dislikes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
     }]
 });
 
+CommentSchema.methods.isLiking = function(user) {
+    if (~this.likes.indexOf(user._id))
+        return true;
+    else
+        return false;
+};
+
 CommentSchema.methods.like = function(user, cb) {
     var likesIndex = this.likes.indexOf(user._id);
-    var dislikesIndex = this.dislikes.indexOf(user._id);
     if (~likesIndex) {
         this.likes.splice(likesIndex, 1);
         this.points -= 1;
     } else {
-        if (~dislikesIndex) {
-            this.dislikes.splice(dislikesIndex, 1);
-        }
         this.likes.push(user._id);
         this.points += 1;
-    }
-    this.save(cb);
-};
-
-CommentSchema.methods.dislike = function(user, cb) {
-    var likesIndex = this.likes.indexOf(user._id);
-    var dislikesIndex = this.dislikes.indexOf(user._id);
-    if (~dislikesIndex) {
-        this.dislikes.splice(likesIndex, 1);
-        this.points += 1;
-    } else {
-        if (~likesIndex) {
-            this.likes.splice(dislikesIndex, 1);
-        }
-        this.dislikes.push(user._id);
-        this.points -= 1;
     }
     this.save(cb);
 };

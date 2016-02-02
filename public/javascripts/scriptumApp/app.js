@@ -1,1 +1,1 @@
-angular.module('scriptumApp', []);
+angular.module('scriptumApp', ['ui.router']);
