@@ -1,0 +1,32 @@
+{
+  "name": "scriptum",
+  "description": "Simple app using MEAN stack and Angular Material.",
+  "main": "",
+  "authors": [
+    "Klaudiusz Dembler <k.dembler@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "scriptum"
+  ],
+  "homepage": "https://github.com/kdembler/scriptum",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.0-rc.2",
+    "angular-material": "^1.0.4",
+    "angular-ui-router": "^0.2.17",
+    "material-design-icons": "^2.1.3",
+    "angular-parallax": "^0.0.2"
+  },
+  "resolutions": {
+    "angular": "1.5.0-rc.2"
+  }
+}

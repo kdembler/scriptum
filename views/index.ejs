@@ -1,29 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Scriptum | Post your shit</title>
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-</head>
-  <!-- Angular.js -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
-  <!-- Angular Libraries  -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.17/angular-ui-router.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-  <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-  <!-- scriptumApp -->
-  <script src="javascripts/scriptumApp/app.js"></script>
-  <script src="javascripts/scriptumApp/app.config.js"></script>
-  <script src="javascripts/scriptumApp/services/authFactory.js"></script>
-  <script src="javascripts/scriptumApp/services/postsFactory.js"></script>
-  <script src="javascripts/scriptumApp/controllers/homeCtrl.js"></script>
-  <script src="javascripts/scriptumApp/controllers/postCtrl.js"></script>
-</head>
-<body ng-app="scriptumApp">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scriptum | Post your shit</title>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css">
+    <!-- Angular.js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- Angular Libraries  -->
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-parallax/scripts/angular-parallax.js"></script>
+    <!-- Angular Material Library -->
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <!-- scriptumApp -->
+    <script src="javascripts/scriptumApp/app.js"></script>
+    <!-- app config -->
+    <script src="javascripts/scriptumApp/app.config.js"></script>
+    <!-- services -->
+    <script src="javascripts/scriptumApp/services/authFactory.js"></script>
+    <script src="javascripts/scriptumApp/services/postsFactory.js"></script>
+    <!-- controllers -->
+    <script src="javascripts/scriptumApp/controllers/homeCtrl.js"></script>
+    <script src="javascripts/scriptumApp/controllers/postCtrl.js"></script>
+    <script src="javascripts/scriptumApp/controllers/navCtrl.js"></script>
+</head>
+
+<body ng-app="scriptumApp">
+    <md-toolbar>
+        <div class="md-toolbar-tools md-toolbar-title">
+            <md-button class="md-icon-button">
+                <md-icon class="material-icons step">home</md-icon>
+            </md-button>
+            <h1>
+                <span>Scriptum</span>
+            </h1>
+            <span flex></span>
+            <md-button class="md-icon-button">
+                <md-icon class="material-icons step">lock_outline</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="baner-container">
+        <img src="images/photo1.jpg" class="baner" alt="">
+        <div class="baner-content"><h1 class="md-display-3">Welcome to Scriptum.</h1></div>
+    </div>
+    <div class="content">
+
+    </div>
 </body>
+
 </html>
