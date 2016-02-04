@@ -3,22 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scriptum | Post your shit</title>
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
-    <link rel="stylesheet" href="stylesheets/style.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Scriptum | Post your shit.</title>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="bower_components/Materialize/dist/css/materialize.css">
     <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css">
-    <!-- Angular.js -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    <!--    scripts   -->
+    <!-- jQuery -->
+    <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+    <!-- Angular -->
     <script src="bower_components/angular/angular.js"></script>
-    <!-- Angular Libraries  -->
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-messages/angular-messages.js"></script>
-    <script src="bower_components/angular-parallax/scripts/angular-parallax.js"></script>
-    <!-- Angular Material Library -->
-    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+    <!-- Materialize JS -->
+    <script src="bower_components/Materialize/dist/js/materialize.js" type="text/javascript"></script>
+    <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
     <!-- scriptumApp -->
     <script src="javascripts/scriptumApp/app.js"></script>
     <!-- app config -->
@@ -33,26 +34,131 @@
 </head>
 
 <body ng-app="scriptumApp">
-    <md-toolbar>
-        <div class="md-toolbar-tools md-toolbar-title">
-            <md-button class="md-icon-button">
-                <md-icon class="material-icons step">home</md-icon>
-            </md-button>
-            <h1>
-                <span>Scriptum</span>
-            </h1>
-            <span flex></span>
-            <md-button class="md-icon-button">
-                <md-icon class="material-icons step">lock_outline</md-icon>
-            </md-button>
+    <div ng-controller="HomeCtrl">
+        <div id="login-modal" class="modal modal-login">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="login-input" type="text" class="validate">
+                        <label for="login-input">Identifier</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password-input" type="password" class="validate">
+                        <label for="password-input">Password</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="btn indigo modal-action modal-close waves-effect">login</a>
+                <a href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
+            </div>
         </div>
-    </md-toolbar>
-    <div class="baner-container">
-        <img src="images/photo1.jpg" class="baner" alt="">
-        <div class="baner-content"><h1 class="md-display-3">Welcome to Scriptum.</h1></div>
-    </div>
-    <div class="content">
-
+        <div id="header">
+            <nav>
+                <div class="nav-wrapper indigo lighten-1">
+                    <a href="#!" class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <a href="#login-modal" class="waves-effect waves-light waves-block large" ng-mouseenter="lockIcon='lock_open'" ng-mouseleave="lockIcon='lock_outline'" modal><i class="material-icons">{{ lockIcon }}</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="index-banner" class="parallax-container">
+                <div class="section no-pad-bot">
+                    <div class="container">
+                        <div class="parallax" parallax><img src="images/background.jpg" alt=""></div>
+                        <div class="tabs-wrapper">
+                            <h1 id="header-text" class="header center indigo-text text-darken-1">Welcome to Scriptum.</h1></div>
+                        <div class="row center">
+                            <h5 class="header col s12 light grey-text text-darken-4">A website where you can post your shit.</h5>
+                        </div>
+                        <div class="row center">
+                            <a id="getstarted-button" class="btn-large waves-effect waves-light indigo lighten-1" ng-click="scrollToContent()">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div ng-repeat="post in posts">
+                            <div class="col s12 l12">
+                                <div class="card indigo">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">{{post.title}}</span>
+                                        <p>{{post.body}}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a><i class="material-icons">thumb_up</i></a>
+                                        <a href="#dislike"><i class="material-icons">thumb_down</i></a>
+                                        <div class="chip indigo-text">{{post.points}}</div>
+                                        <a href="#dislike"><i class="material-icons right activator">comment</i></a>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
+                                        <ul class="collection">
+                                            <li class="collection-item avatar">
+                                                <img class="circle" src="images/user43.png" alt="">
+                                                <span class="title">John Wick</span>
+                                                <p>Cool post. Keep up the good work!</p>
+                                                <div class="secondary-content">
+                                                    <div class="chip indigo white-text">18</div>
+                                                    <a href="#!" class=""><i class="material-icons black-text">grade</i></a>
+                                                </div>
+                                            </li>
+                                            <li class="collection-item avatar">
+                                                <img class="circle" src="images/user43.png" alt="">
+                                                <span class="title">James Cena</span>
+                                                <p>I didn't like it. Work on your writing.</p>
+                                                <a href="#!" class="secondary-content"><i class="material-icons yellow-text">grade</i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large z-depth-1 indigo">
+                <i class="material-icons">more_vert</i>
+            </a>
+            <ul>
+                <li>
+                    <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
+                </li>
+                <li>
+                    <a class="btn-floating red darken-1" href="#addpost-modal" modal><i class="material-icons">add</i></a>
+                </li>
+            </ul>
+        </div>
+        <div id="addpost-modal" class="modal modal-login">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">subject</i>
+                        <input id="title-input" type="text" length="30">
+                        <label for="title-input">Title</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">create</i>
+                        <textarea id="content-input" class="materialize-textarea" length="250"></textarea>
+                        <label for="content-input">Content</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#addpost" class="btn indigo modal-action modal-close waves-effect">add post</a>
+                <a href="" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
+            </div>
+        </div>
     </div>
 </body>
 

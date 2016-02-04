@@ -1,1 +1,1 @@
-angular.module('scriptumApp', ['ui.router', 'ngMaterial', 'angular-parallax']);
+angular.module('scriptumApp', ['ui.router', 'ui.materialize', 'duScroll']);
