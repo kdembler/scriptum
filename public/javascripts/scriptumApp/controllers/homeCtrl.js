@@ -2,10 +2,11 @@ var HomeCtrl = function($scope, posts, auth) {
     $scope.lockIcon = 'lock_outline';
 
     $scope.scrollToTop = function() {
-
+        $('body').velocity('scroll');
     };
 
     $scope.scrollToContent = function() {
+        $('#content').velocity('scroll');
     };
     posts.getAll();
     $scope.posts = posts.posts;
