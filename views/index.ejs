@@ -86,39 +86,31 @@
             <div class="section">
                 <div class="container">
                     <div class="row">
-                        <div ng-repeat="post in posts">
-                            <div class="col s12 l12">
-                                <div class="card indigo">
-                                    <div class="card-content white-text">
-                                        <span class="card-title">{{post.title}}</span>
-                                        <p>{{post.body}}</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a><i class="material-icons">thumb_up</i></a>
-                                        <a href="#dislike"><i class="material-icons">thumb_down</i></a>
-                                        <div class="chip indigo-text">{{post.points}}</div>
-                                        <a href="#dislike"><i class="material-icons right activator">comment</i></a>
-                                    </div>
-                                    <div class="card-reveal">
-                                        <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
-                                        <ul class="collection">
-                                            <li class="collection-item avatar">
-                                                <img class="circle" src="images/user43.png" alt="">
-                                                <span class="title">John Wick</span>
-                                                <p>Cool post. Keep up the good work!</p>
-                                                <div class="secondary-content">
-                                                    <div class="chip indigo white-text">18</div>
-                                                    <a href="#!" class=""><i class="material-icons black-text">grade</i></a>
-                                                </div>
-                                            </li>
-                                            <li class="collection-item avatar">
-                                                <img class="circle" src="images/user43.png" alt="">
-                                                <span class="title">James Cena</span>
-                                                <p>I didn't like it. Work on your writing.</p>
-                                                <a href="#!" class="secondary-content"><i class="material-icons yellow-text">grade</i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div class="col s12 l12" ng-repeat="post in posts">
+                            <div class="card indigo">
+                                <div class="card-content white-text">
+                                    <span class="card-title">{{post.title}}</span>
+                                    <p>{{post.body}}</p>
+                                </div>
+                                <div class="card-action">
+                                    <a><i class="material-icons">thumb_up</i></a>
+                                    <a href="#dislike"><i class="material-icons">thumb_down</i></a>
+                                    <div class="chip indigo-text">{{post.points}}</div>
+                                    <a href="#dislike"><i class="material-icons right activator">comment</i></a>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
+                                    <ul class="collection">
+                                        <li class="collection-item avatar" ng-repeat="comment in post.comments">
+                                            <img class="circle" src="images/user43.png" alt="">
+                                            <span class="title">{{comment.author}}</span>
+                                            <p>{{comment.body}}</p>
+                                            <div class="secondary-content">
+                                                <div class="chip indigo white-text">{{comment.points}}</div>
+                                                <a href="#!" class=""><i class="material-icons black-text">grade</i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
