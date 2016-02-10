@@ -120,11 +120,15 @@
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
-                                        <div class="input-field col s12">
+                                    <div class="row">
+                                        <div class="input-field col s11">
                                             <i class="material-icons prefix">message</i>
-                                            <textarea id="password-input" class="materialize-textarea" length="150"></textarea>
-                                            <label for="password-input">Join the discussion...</label>
+                                            <input type="text" id="comment-input" length="150">
+                                            </textarea>
+                                            <label for="comment-input">Join the discussion...</label>
                                         </div>
+                                    <a class="btn-floating btn-scriptum-send waves-effect waves-light waves-block indigo"><i class="material-icons">send</i></a>
+                                    </div>
                                     <ul class="collection">
                                         <li class="collection-item avatar" ng-repeat="comment in post.comments">
                                             <img class="circle" src="images/user43.png" alt="">

@@ -68,3 +68,9 @@ textarea:focus {
         top: 0;
     }
 }
+
+.btn-scriptum-send {
+    position: absolute;
+    right: 10px;
+    top: 70px;
+}
