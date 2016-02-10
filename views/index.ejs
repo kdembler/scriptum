@@ -38,21 +38,45 @@
         <div id="login-modal" class="modal modal-login">
             <div class="modal-content">
                 <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="login-input" type="text" class="validate">
-                        <label for="login-input">Identifier</label>
+                    <div class="col s12">
+                        <ul class="tabs grey lighten-5 orange-text" tabs>
+                            <li class="tab col s6"><a class="active" href="#login-tab">Login</a></li>
+                            <li class="tab col s6"><a href="#register-tab">Register</a></li>
+                        </ul>
                     </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input id="password-input" type="password" class="validate">
-                        <label for="password-input">Password</label>
+                    <div id="login-tab" class="col s12">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="login-input" type="text" class="validate">
+                            <label for="login-input">Identifier</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input id="password-input" type="password" class="validate">
+                            <label for="password-input">Password</label>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="" class="btn indigo modal-action modal-close waves-effect">login</a>
+                            <a href="" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                        </div>
+                    </div>
+                    <div id="register-tab" class="col s12">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="login-input" type="text" class="validate">
+                            <label for="login-input">Identifier</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input id="password-input" type="password" class="validate">
+                            <label for="password-input">Password</label>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="" class="btn indigo modal-action modal-close waves-effect">register</a>
+                            <a href="" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="btn indigo modal-action modal-close waves-effect">login</a>
-                <a href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
             </div>
         </div>
         <div id="header">
@@ -100,6 +124,11 @@
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">message</i>
+                                            <textarea id="password-input" class="materialize-textarea" length="150"></textarea>
+                                            <label for="password-input">Join the discussion...</label>
+                                        </div>
                                     <ul class="collection">
                                         <li class="collection-item avatar" ng-repeat="comment in post.comments">
                                             <img class="circle" src="images/user43.png" alt="">
