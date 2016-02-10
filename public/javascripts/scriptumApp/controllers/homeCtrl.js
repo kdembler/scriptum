@@ -1,14 +1,11 @@
-var HomeCtrl = function($scope, $document, posts, auth) {
+var HomeCtrl = function($scope, posts, auth) {
     $scope.lockIcon = 'lock_outline';
-    // $scope.background = parallaxHelper.createAnimator(-0.5);
 
     $scope.scrollToTop = function() {
-        $document.duScrollTo(0, 0, 500);
+
     };
 
     $scope.scrollToContent = function() {
-        var content = angular.element(document.getElementById('content'));
-        $document.duScrollTo(content, 0, 500);
     };
     posts.getAll();
     $scope.posts = posts.posts;
@@ -36,6 +33,6 @@ var HomeCtrl = function($scope, $document, posts, auth) {
     $scope.isLoggedIn = auth.isLoggedIn;
 };
 
-HomeCtrl.$inject = ['$scope', '$document', 'posts', 'auth'];
+HomeCtrl.$inject = ['$scope', 'posts', 'auth'];
 
 angular.module('scriptumApp').controller('HomeCtrl', HomeCtrl);

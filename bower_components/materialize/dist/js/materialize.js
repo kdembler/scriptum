@@ -2567,10 +2567,10 @@ if ($) {
 
     // Add posibility to scroll to selected option
     // usefull for select for example
-    // $.fn.scrollTo = function(elem) {
-    //   $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top);
-    //   return this;
-    // };
+    $.fn.scrollTo = function(elem) {
+      $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top);
+      return this;
+    };
 
     $.fn.dropdown = function(option) {
         var defaults = {

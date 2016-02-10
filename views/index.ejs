@@ -15,15 +15,11 @@
     <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
     <!-- Angular -->
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
     <!-- Materialize JS -->
     <script src="bower_components/Materialize/dist/js/materialize.js" type="text/javascript"></script>
-    <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
+    <script src="javascripts/materialize-logic.js"></script>
     <!-- scriptumApp -->
     <script src="javascripts/scriptumApp/app.js"></script>
-    <!-- app config -->
-    <script src="javascripts/scriptumApp/app.config.js"></script>
     <!-- services -->
     <script src="javascripts/scriptumApp/services/authFactory.js"></script>
     <script src="javascripts/scriptumApp/services/postsFactory.js"></script>
@@ -35,11 +31,11 @@
 
 <body ng-app="scriptumApp">
     <div ng-controller="HomeCtrl">
-        <div id="login-modal" class="modal modal-login">
+        <div id="login-modal" class="modal modal-scriptum">
             <div class="modal-content">
                 <div class="row">
                     <div class="col s12">
-                        <ul class="tabs grey lighten-5 orange-text" tabs>
+                        <ul class="tabs grey lighten-5 orange-text">
                             <li class="tab col s6"><a class="active" href="#login-tab">Login</a></li>
                             <li class="tab col s6"><a href="#register-tab">Register</a></li>
                         </ul>
@@ -85,7 +81,7 @@
                     <a href="#!" class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="#login-modal" class="waves-effect waves-light waves-block large" ng-mouseenter="lockIcon='lock_open'" ng-mouseleave="lockIcon='lock_outline'" modal><i class="material-icons">{{ lockIcon }}</i></a>
+                            <a href="#login-modal" class="waves-effect waves-light waves-block modal-trigger large" ng-mouseenter="lockIcon='lock_open'" ng-mouseleave="lockIcon='lock_outline'"><i class="material-icons">{{ lockIcon }}</i></a>
                         </li>
                     </ul>
                 </div>
@@ -146,6 +142,7 @@
                     </div>
                 </div>
             </div>
+            <div style="height: 300vh"></div>
         </div>
         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
             <a class="btn-floating btn-large z-depth-1 indigo">
@@ -156,11 +153,11 @@
                     <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li>
-                    <a class="btn-floating red darken-1" href="#addpost-modal" modal><i class="material-icons">add</i></a>
+                    <a class="btn-floating red darken-1 modal-trigger" href="#addpost-modal"><i class="material-icons">add</i></a>
                 </li>
             </ul>
         </div>
-        <div id="addpost-modal" class="modal modal-login">
+        <div id="addpost-modal" class="modal modal-scriptum">
             <div class="modal-content">
                 <div class="row">
                     <div class="input-field col s12">
