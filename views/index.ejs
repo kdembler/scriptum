@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs grey lighten-5 orange-text">
-                            <li class="tab col s6"><a class="active" href="#login-tab">Login</a></li>
+                            <li class="tab col s6"><a href="#login-tab">Login</a></li>
                             <li class="tab col s6"><a href="#register-tab">Register</a></li>
                         </ul>
                     </div>
@@ -96,7 +96,7 @@
                     <a class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="{{lockTarget()}}" class="waves-effect waves-light waves-block modal-trigger large" ng-mouseenter="lockEnter()" ng-mouseleave="lockLeave()"><i class="material-icons">{{ lockIcon }}</i></a>
+                            <a ng-click="openLogModal()" class="waves-effect waves-light waves-block large" ng-mouseenter="lockEnter()" ng-mouseleave="lockLeave()"><i class="material-icons">{{ lockIcon }}</i></a>
                         </li>
                     </ul>
                 </div>
@@ -128,10 +128,10 @@
                                     <p>{{post.body}}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a><i class="material-icons">thumb_up</i></a>
-                                    <a><i class="material-icons">thumb_down</i></a>
+                                    <a class="btn-scriptum-icon"><i class="material-icons">thumb_up</i></a>
+                                    <a class="btn-scriptum-icon"><i class="material-icons">thumb_down</i></a>
                                     <div class="chip indigo-text">{{post.points}}</div>
-                                    <a><i class="material-icons right activator">comment</i></a>
+                                    <a class="btn-scriptum-icon"><i class="material-icons right activator">comment</i></a>
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
@@ -152,7 +152,7 @@
                                             <p>{{comment.body}}</p>
                                             <div class="secondary-content">
                                                 <div class="chip indigo white-text">{{comment.points}}</div>
-                                                <a class=""><i class="material-icons black-text">grade</i></a>
+                                                <a class="btn-scriptum-icon"><i class="material-icons black-text">grade</i></a>
                                             </div>
                                         </li>
                                     </ul>
@@ -173,7 +173,8 @@
                     <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li ng-show="isLoggedIn()">
-                    <a class="btn-floating red darken-1 modal-trigger" href="#addpost-modal"><i class="material-icons">add</i></a>
+                    <!-- <a id="addpost-activator" class="btn-floating red darken-1"><i class="material-icons">add</i></a> -->
+                    <button data-target="addpost-modal" class="btn-floating modal-trigger red darkien-1"><i class="material-icons">add</i></button>
                 </li>
             </ul>
         </div>

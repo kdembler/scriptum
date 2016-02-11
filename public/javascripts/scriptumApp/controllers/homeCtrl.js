@@ -4,11 +4,9 @@ var HomeCtrl = function($scope, posts, auth) {
     $scope.register = {};
     $scope.newPost = {};
 
-    $scope.lockTarget = function() {
-        if(auth.isLoggedIn())
-            return '#logout-modal';
-        else
-            return '#login-modal';
+    $scope.openLogModal = function() {
+        var target = auth.isLoggedIn() ? '#logout-modal' : '#login-modal';
+        $(target).openModal();
     };
 
     $scope.lockEnter = function() {

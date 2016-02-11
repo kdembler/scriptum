@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.parallax').parallax();
     $('.modal-trigger').leanModal();
-    $('ul.tabs').tabs();
+    $('ul.tabs').tabs('select_tab', 'login-tab');
     // override materialize card reveal behaviour
     $(document).off('click.card', '.card').on('click.card', '.card', function(e) {
         if ($(this).find('> .card-reveal').length) {

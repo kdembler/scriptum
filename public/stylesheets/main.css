@@ -78,3 +78,7 @@ textarea:focus {
     right: 20px;
     transition: opacity .1s;
 }
+
+.btn-scriptum-icon {
+    cursor: pointer;
+}
