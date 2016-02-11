@@ -121,13 +121,14 @@
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
                                     <div class="row">
-                                        <div class="input-field col s11">
+                                        <div class="input-field col s12">
                                             <i class="material-icons prefix">message</i>
-                                            <input type="text" id="comment-input" length="150">
-                                            </textarea>
+                                            <input id="comment-input" type="text" length="100">
                                             <label for="comment-input">Join the discussion...</label>
                                         </div>
-                                    <a class="btn-floating btn-scriptum-send waves-effect waves-light waves-block indigo"><i class="material-icons">send</i></a>
+                                        <div class="col s1">
+                                            <a class="btn-floating btn-scriptum-submit waves-effect waves-light indigo"><i class="material-icons">send</i></a>
+                                        </div>
                                     </div>
                                     <ul class="collection">
                                         <li class="collection-item avatar" ng-repeat="comment in post.comments">
