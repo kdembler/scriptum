@@ -12,15 +12,15 @@ var HomeCtrl = function($scope, posts, auth) {
     $scope.posts = posts.posts;
 
     $scope.addPost = function() {
-        if (!$scope.title || $scope.title === '') return;
-        if (!scope.body || $scope.body === '') return;
+        if (!$scope.newPost.title || $scope.newPost.title === '') return;
+        if (!scope.newPost.body || $scope.newPost.body === '') return;
 
         posts.create({
-            title: $scope.title,
-            body: $scope.body
+            title: $scope.newPost.title,
+            body: $scope.newPost.body
         });
-        $scope.title = '';
-        $scope.body = '';
+        $scope.newPost.title = '';
+        $scope.newPost.body = '';
     };
 
     $scope.likePost = function(post) {
@@ -29,6 +29,27 @@ var HomeCtrl = function($scope, posts, auth) {
 
     $scope.dislikePost = function(post) {
         post.dislike(post);
+    };
+
+    $scope.logMeIn = function() {
+        console.log($scope.login);
+    };
+
+    $scope.registerMe = function() {
+
+    };
+
+    $scope.resetLogin = function() {
+        $scope.login.user = "";
+        $scope.login.password = "";
+        $scope.register.user = "";
+        $scope.register.password = "";
+        $scope.register.repeat = "";
+    };
+
+    $scope.resetPost = function() {
+        $scope.newPost.title = '';
+        $scope.newPost.body = '';
     };
 
     $scope.isLoggedIn = auth.isLoggedIn;

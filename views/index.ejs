@@ -43,33 +43,38 @@
                     <div id="login-tab" class="col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="login-input" type="text" class="validate">
+                            <input type="text" ng-model="login.user">
                             <label for="login-input">Identifier</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input id="password-input" type="password" class="validate">
+                            <input type="password" ng-model="login.password">
                             <label for="password-input">Password</label>
                         </div>
                         <div class="modal-footer">
-                            <a href="" class="btn indigo modal-action modal-close waves-effect">login</a>
-                            <a href="" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                            <a ng-click="logMeIn()" class="btn indigo waves-effect">login</a>
+                            <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
                         </div>
                     </div>
                     <div id="register-tab" class="col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="login-input" type="text" class="validate">
-                            <label for="login-input">Identifier</label>
+                            <input type="text" ng-model="register.user">
+                            <label for="login-input">New identifier</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input id="password-input" type="password" class="validate">
-                            <label for="password-input">Password</label>
+                            <input type="password" ng-model="register.password">
+                            <label for="password-input">New password</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input type="password" ng-model="register.repeat">
+                            <label for="password-input">Repeat new password</label>
                         </div>
                         <div class="modal-footer">
-                            <a href="" class="btn indigo modal-action modal-close waves-effect">register</a>
-                            <a href="" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                            <a ng-click="registerMe()" class="btn indigo waves-effect">register</a>
+                            <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
                         </div>
                     </div>
                 </div>
@@ -121,7 +126,7 @@
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
                                     <div class="row">
-                                        <div class="input-field col s12">
+                                        <div class="input-field col s11 l12">
                                             <i class="material-icons prefix">message</i>
                                             <input id="comment-input" type="text" length="100">
                                             <label for="comment-input">Join the discussion...</label>
@@ -167,19 +172,19 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">subject</i>
-                        <input id="title-input" type="text" length="30">
+                        <input type="text" ng-model="newPost.title" length="30">
                         <label for="title-input">Title</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">create</i>
-                        <textarea id="content-input" class="materialize-textarea" length="250"></textarea>
+                        <textarea type="text" ng-model="newPost.body" class="materialize-textarea" length="250"></textarea>
                         <label for="content-input">Content</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#addpost" class="btn indigo modal-action modal-close waves-effect">add post</a>
-                <a href="" class="btn-flat modal-action modal-close waves-effect waves-green">close</a>
+                <a ng-click="addPost()" class="btn indigo waves-effect">add post</a>
+                <a ng-click="resetPost()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
             </div>
         </div>
     </div>
