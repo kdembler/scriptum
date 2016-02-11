@@ -1,5 +1,8 @@
 var HomeCtrl = function($scope, posts, auth) {
     $scope.lockIcon = 'lock_outline';
+    $scope.login = {};
+    $scope.register = {};
+    $scope.newPost = {};
 
     $scope.scrollToTop = function() {
         $('body').velocity('scroll');
@@ -32,7 +35,16 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.logMeIn = function() {
-        console.log($scope.login);
+        var user = {
+            username: $scope.login.username,
+            password: $scope.login.password
+        };
+        console.log(user);
+        auth.logIn(user).error(function(error) {
+            Materialize.toast(error.message, 4000);
+        }).then(function() {
+            Materialize.toast('Then!!', 4000);
+        });
     };
 
     $scope.registerMe = function() {
@@ -40,9 +52,9 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.resetLogin = function() {
-        $scope.login.user = "";
+        $scope.login.username = "";
         $scope.login.password = "";
-        $scope.register.user = "";
+        $scope.register.username = "";
         $scope.register.password = "";
         $scope.register.repeat = "";
     };
