@@ -10,7 +10,7 @@ var AuthFac = function($http, $window) {
     };
 
     fac.isLoggedIn = function() {
-        var token = auth.getToken();
+        var token = fac.getToken();
 
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
@@ -31,14 +31,14 @@ var AuthFac = function($http, $window) {
     fac.register = function(user) {
         return $http.post('/register', user)
             .success(function(data) {
-                auth.saveToken(data.token);
+                fac.saveToken(data.token);
             });
     };
 
     fac.logIn = function(user) {
         return $http.post('/login', user)
             .success(function(data) {
-                auth.saveToken(data.token);
+                fac.saveToken(data.token);
             });
     };
 

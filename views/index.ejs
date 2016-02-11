@@ -31,6 +31,16 @@
 
 <body ng-app="scriptumApp">
     <div ng-controller="HomeCtrl">
+        <div id="logout-modal" class="modal modal-scriptum">
+            <div class="modal-content">
+                <h4>Logout</h4>
+                <p>Do you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <a ng-click="logOut()" class="btn modal-action modal-close indigo waves-effect">logout</a>
+                <a class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+            </div>
+        </div>
         <div id="login-modal" class="modal modal-scriptum">
             <div class="modal-content">
                 <div class="row">
@@ -83,10 +93,10 @@
         <div id="header">
             <nav>
                 <div class="nav-wrapper indigo lighten-1">
-                    <a href="#!" class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
+                    <a class="brand-logo waves-effect waves-light" style="margin-left: 10px;"><i class="material-icons left">email</i>Scriptum</a>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="#login-modal" class="waves-effect waves-light waves-block modal-trigger large" ng-mouseenter="lockIcon='lock_open'" ng-mouseleave="lockIcon='lock_outline'"><i class="material-icons">{{ lockIcon }}</i></a>
+                            <a href="{{lockTarget()}}" class="waves-effect waves-light waves-block modal-trigger large" ng-mouseenter="lockEnter()" ng-mouseleave="lockLeave()"><i class="material-icons">{{ lockIcon }}</i></a>
                         </li>
                     </ul>
                 </div>
@@ -119,9 +129,9 @@
                                 </div>
                                 <div class="card-action">
                                     <a><i class="material-icons">thumb_up</i></a>
-                                    <a href="#dislike"><i class="material-icons">thumb_down</i></a>
+                                    <a><i class="material-icons">thumb_down</i></a>
                                     <div class="chip indigo-text">{{post.points}}</div>
-                                    <a href="#dislike"><i class="material-icons right activator">comment</i></a>
+                                    <a><i class="material-icons right activator">comment</i></a>
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
@@ -142,7 +152,7 @@
                                             <p>{{comment.body}}</p>
                                             <div class="secondary-content">
                                                 <div class="chip indigo white-text">{{comment.points}}</div>
-                                                <a href="#!" class=""><i class="material-icons black-text">grade</i></a>
+                                                <a class=""><i class="material-icons black-text">grade</i></a>
                                             </div>
                                         </li>
                                     </ul>
@@ -162,7 +172,7 @@
                 <li>
                     <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
                 </li>
-                <li>
+                <li ng-show="isLoggedIn()">
                     <a class="btn-floating red darken-1 modal-trigger" href="#addpost-modal"><i class="material-icons">add</i></a>
                 </li>
             </ul>

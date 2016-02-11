@@ -1,8 +1,23 @@
 var HomeCtrl = function($scope, posts, auth) {
-    $scope.lockIcon = 'lock_outline';
+    $scope.lockIcon = auth.isLoggedIn() ? 'lock_open' : 'lock_outline';
     $scope.login = {};
     $scope.register = {};
     $scope.newPost = {};
+
+    $scope.lockTarget = function() {
+        if(auth.isLoggedIn())
+            return '#logout-modal';
+        else
+            return '#login-modal';
+    };
+
+    $scope.lockEnter = function() {
+        $scope.lockIcon = auth.isLoggedIn() ? 'lock_outline' : 'lock_open';
+    };
+
+    $scope.lockLeave = function() {
+        $scope.lockIcon = auth.isLoggedIn() ? 'lock_open' : 'lock_outline';
+    };
 
     $scope.scrollToTop = function() {
         $('body').velocity('scroll');
@@ -39,7 +54,16 @@ var HomeCtrl = function($scope, posts, auth) {
             Materialize.toast(error.message, 4000);
         }).then(function() {
             Materialize.toast('Logged in!', 4000);
+            $scope.lockIcon = 'lock_open';
+            $scope.resetLogin();
+            $('#login-modal').closeModal();
         });
+    };
+
+    $scope.logOut = function() {
+        auth.logOut();
+        $scope.lockIcon = 'lock_outline';
+        Materialize.toast('Logged out!', 4000);
     };
 
     $scope.registerMe = function() {
