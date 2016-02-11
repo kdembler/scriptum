@@ -35,20 +35,19 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.logMeIn = function() {
-        var user = {
-            username: $scope.login.username,
-            password: $scope.login.password
-        };
-        console.log(user);
-        auth.logIn(user).error(function(error) {
+        auth.logIn($scope.login).error(function(error) {
             Materialize.toast(error.message, 4000);
         }).then(function() {
-            Materialize.toast('Then!!', 4000);
+            Materialize.toast('Logged in!', 4000);
         });
     };
 
     $scope.registerMe = function() {
-
+        auth.register($scope.register).error(function(error) {
+            Materialize.toast(error.message, 4000);
+        }).then(function() {
+            Materialize.toast('Registered!', 4000);
+        });
     };
 
     $scope.resetLogin = function() {

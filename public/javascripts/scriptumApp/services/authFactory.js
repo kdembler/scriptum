@@ -36,11 +36,9 @@ var AuthFac = function($http, $window) {
     };
 
     fac.logIn = function(user) {
-        Materialize.toast('Auth call!', 4000);
         return $http.post('/login', user)
             .success(function(data) {
                 auth.saveToken(data.token);
-                Materialize.toast('Logged in!', 4000);
             });
     };
 
