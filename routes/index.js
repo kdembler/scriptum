@@ -171,23 +171,18 @@ router.post('/register', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-    console.log('login');
     if (!req.body.username || !req.body.password)
         return res.status(400).json({
             message: 'Please fill out all fields'
         });
-    console.log('passport now');
     passport.authenticate('local', function(err, user, info) {
         console.log('inside');
         if (err) return next(err);
-        console.log('no error');
         if (user) {
-            console.log('there is user');
             return res.json({
                 token: user.generateJWT()
             });
         } else {
-            console.log('there is NO user');
             return res.status(401).json(info);
         }
     })(req, res, next);

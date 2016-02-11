@@ -4,11 +4,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-console.log('passport init');
-
 passport.use(new LocalStrategy(
     function(username, password, done) {
-        console.log('in strategy');
         User.findOne({
             username: username
         }, function(err, user) {
