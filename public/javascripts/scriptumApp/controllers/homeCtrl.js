@@ -50,6 +50,7 @@ var HomeCtrl = function($scope, posts, auth) {
         posts.like(post).then(function(finished) {
             post.points = finished.data.points;
             post.liking = finished.data.liking;
+            console.log(post);
         });
     };
 
@@ -58,6 +59,14 @@ var HomeCtrl = function($scope, posts, auth) {
             post.points = finished.data.points;
             post.liking = finished.data.liking;
         });
+    };
+
+    $scope.isLikingPost = function(post) {
+        return post.liking == 1;
+    };
+
+    $scope.isDislikingPost = function(post) {
+        return post.liking == -1;
     };
 
     $scope.logMeIn = function() {
