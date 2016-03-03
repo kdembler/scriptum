@@ -114,7 +114,6 @@ router.put('/posts/:post/like', auth, function(req, res, next) {
             response.liking = 1;
         else
             response.liking = 0;
-        console.log(response);
         res.json(response);
     });
 });

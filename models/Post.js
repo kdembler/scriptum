@@ -34,6 +34,7 @@ PostSchema.methods.like = function(user, cb) {
     } else {
         if (~dislikesIndex) {
             this.dislikes.splice(dislikesIndex, 1);
+            this.points += 1;
         }
         this.likes.push(user._id);
         this.points += 1;
@@ -45,11 +46,12 @@ PostSchema.methods.dislike = function(user, cb) {
     var likesIndex = this.likes.indexOf(user._id);
     var dislikesIndex = this.dislikes.indexOf(user._id);
     if (~dislikesIndex) {
-        this.dislikes.splice(likesIndex, 1);
+        this.dislikes.splice(dislikesIndex, 1);
         this.points += 1;
     } else {
         if (~likesIndex) {
-            this.likes.splice(dislikesIndex, 1);
+            this.likes.splice(likesIndex, 1);
+            this.points -= 1;
         }
         this.dislikes.push(user._id);
         this.points -= 1;
