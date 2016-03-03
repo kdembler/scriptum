@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.param('post', function(req, res, next, id) {
-    Post.findById(id, function(err, pos) {
+    Post.findById(id, function(err, post) {
         if (err) return next(err);
         if (!post) return next(new Error('can\'t find post'));
 
@@ -36,9 +36,9 @@ router.param('post', function(req, res, next, id) {
 });
 
 router.param('comment', function(req, res, next, id) {
-    Comment.findById(id, function(err, pos) {
+    Comment.findById(id, function(err, comment) {
         if (err) return next(err);
-        if (!post) return next(new Error('can\'t find comment'));
+        if (!comment) return next(new Error('can\'t find comment'));
 
         req.comment = comment;
         return next();
@@ -49,26 +49,34 @@ router.get('/posts', authNR, function(req, res, next) {
     Post.find().populate('comments').exec(function(err, posts) {
         if (err) return next(err);
 
-        if (req.payload) {
-            posts.forEach(function(post) {
-                if (post.isLiking())
-                    post.liking = 1;
-                else if (post.isDisliking())
-                    post.liking = -1;
-                else
-                    post.liking = 0;
-            });
-        }
-        res.json(posts);
+        var response = [];
+        posts.forEach(function(post, index, array) {
+            response.push(post.toJSON());
+
+            var liking = 0;
+            if(req.payload) {
+                if (post.isLiking(req.payload))
+                    liking = 1;
+                else if (post.isDisliking(req.payload))
+                    liking = -1;
+            }
+            response[index].liking = liking;
+        });
+        res.json(response);
     });
 });
 
 router.post('/posts', auth, function(req, res, next) {
     var post = new Post(req.body);
-    post.author = req.payload.username;
+
+    console.log(req.payload);
+    post.author = req.payload._id;
 
     post.save(function(err, post) {
-        if (err) return next(err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
 
         res.json(post);
     });
@@ -100,11 +108,14 @@ router.put('/posts/:post/like', auth, function(req, res, next) {
     req.post.like(req.payload, function(err, post) {
         if (err) return next(err);
 
+        var response = post.toJSON();
+
         if (post.isLiking(req.payload))
-            post.liking = 1;
+            response.liking = 1;
         else
-            post.liking = 0;
-        res.json(post);
+            response.liking = 0;
+        console.log(response);
+        res.json(response);
     });
 });
 
@@ -112,11 +123,13 @@ router.put('/posts/:post/dislike', auth, function(req, res, next) {
     req.post.dislike(req.payload, function(err, post) {
         if (err) return next(err);
 
+        var response = post.toJSON();
+
         if (post.isDisliking(req.payload))
-            post.liking = -1;
+            response.liking = -1;
         else
-            post.liking = 0;
-        res.json(post);
+            response.liking = 0;
+        res.json(response);
     });
 });
 
@@ -153,23 +166,36 @@ router.put('/posts/:post/comments/:comment/like', auth, function(req, res, next)
 router.post('/register', function(req, res, next) {
     if (!req.body.username || !req.body.password || !req.body.repeat)
         return res.status(400).json({
-            message: 'Please fill out all fields!'
+            message: 'Please fill out all fields.'
         });
     if (req.body.password != req.body.repeat)
         return res.status(400).json({
-            message: 'Passwords do not match!'
+            message: 'Passwords do not match.'
         });
+    var isAlreadyUsed = false;
 
-    var user = new User();
-
-    user.username = req.body.username;
-    user.setPassword(req.body.password);
-
-    user.save(function(err) {
+    User.count({ username: req.body.username }, function(err, count) {
         if (err) return next(err);
 
-        return res.json({
-            token: user.generateJWT()
+        if (count > 0)
+            isAlreadyUsed = true;
+    }).then(function() {
+        if (isAlreadyUsed) {
+            return res.status(400).json({
+                message: 'Username already in use.'
+            });
+        }
+        var user = new User();
+
+        user.username = req.body.username;
+        user.setPassword(req.body.password);
+
+        user.save(function(err) {
+            if (err) return next(err);
+
+            return res.json({
+                token: user.generateJWT()
+            });
         });
     });
 });
@@ -177,10 +203,9 @@ router.post('/register', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     if (!req.body.username || !req.body.password)
         return res.status(400).json({
-            message: 'Please fill out all fields!'
+            message: 'Please fill out all fields.'
         });
     passport.authenticate('local', function(err, user, info) {
-        console.log('inside');
         if (err) return next(err);
         if (user) {
             return res.json({

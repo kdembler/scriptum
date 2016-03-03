@@ -28,23 +28,36 @@ var HomeCtrl = function($scope, posts, auth) {
     $scope.posts = posts.posts;
 
     $scope.addPost = function() {
-        if (!$scope.newPost.title || $scope.newPost.title === '') return;
-        if (!scope.newPost.body || $scope.newPost.body === '') return;
+        if (!$scope.newPost.title || $scope.newPost.title === '') {
+            Materialize.toast('Post title cannot be empty!', 4000);
+            return;
+        }
+        if (!$scope.newPost.body || $scope.newPost.body === '') {
+            Materialize.toast('Post body cannot be empty!', 4000);
+            return;
+        }
 
         posts.create({
             title: $scope.newPost.title,
             body: $scope.newPost.body
+        }).then(function() {
+            Materialize.toast('Post added!', 4000);
+            $scope.resetPost();
         });
-        $scope.newPost.title = '';
-        $scope.newPost.body = '';
     };
 
     $scope.likePost = function(post) {
-        post.like(post);
+        posts.like(post).then(function(finished) {
+            post.points = finished.data.points;
+            post.liking = finished.data.liking;
+        });
     };
 
     $scope.dislikePost = function(post) {
-        post.dislike(post);
+        posts.dislike(post).then(function(finished) {
+            post.points = finished.data.points;
+            post.liking = finished.data.liking;
+        });
     };
 
     $scope.logMeIn = function() {
@@ -54,7 +67,6 @@ var HomeCtrl = function($scope, posts, auth) {
             Materialize.toast('Logged in!', 4000);
             $scope.lockIcon = 'lock_open';
             $scope.resetLogin();
-            $('#login-modal').closeModal();
         });
     };
 
@@ -69,10 +81,13 @@ var HomeCtrl = function($scope, posts, auth) {
             Materialize.toast(error.message, 4000);
         }).then(function() {
             Materialize.toast('Registered!', 4000);
+            $scope.lockIcon = 'lock_open';
+            $scope.resetLogin();
         });
     };
 
     $scope.resetLogin = function() {
+        $('#login-modal').closeModal();
         $scope.login.username = "";
         $scope.login.password = "";
         $scope.register.username = "";
@@ -83,6 +98,7 @@ var HomeCtrl = function($scope, posts, auth) {
     $scope.resetPost = function() {
         $scope.newPost.title = '';
         $scope.newPost.body = '';
+        $('#addpost-modal').closeModal();
     };
 
     $scope.isLoggedIn = auth.isLoggedIn;

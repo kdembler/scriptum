@@ -15,35 +15,25 @@ var PostsFac = function($http, auth) {
     };
 
     fac.getAll = function() {
-        return $http.get('/posts').success(function(data) {
-            angular.copy(data, fac.posts);
-        });
+        return $http.get('/posts', authHeader)
+            .success(function(data) {
+                angular.copy(data, fac.posts);
+            });
     };
 
     fac.create = function(post) {
-        return $http.post('/posts/', post, authHeader).success(function(data) {
-            fac.posts.push(data);
-        });
+        return $http.post('/posts/', post, authHeader)
+            .success(function(data) {
+                fac.posts.push(data);
+            });
     };
 
     fac.like = function(post) {
-        return $http.put('/posts/' + post._id + '/like', null, {
-            headers: {
-                Authorization: 'Bearer ' + auth.getToken()
-            }
-        }).success(function(data) {
-            post = data;
-        });
+        return $http.put('/posts/' + post._id + '/like', null, authHeader);
     };
 
     fac.dislike = function(post) {
-        return $http.put('/posts/' + post._id + '/dislike', null, {
-            headers: {
-                Authorization: 'Bearer ' + auth.getToken()
-            }
-        }).success(function(data) {
-            post = data;
-        });
+        return $http.put('/posts/' + post._id + '/dislike', null, authHeader);
     };
 
     fac.addComment = function(post, comment) {

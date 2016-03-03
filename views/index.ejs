@@ -45,47 +45,51 @@
             <div class="modal-content">
                 <div class="row">
                     <div class="col s12">
-                        <ul class="tabs grey lighten-5 orange-text">
-                            <li class="tab col s6"><a href="#login-tab">Login</a></li>
+                        <ul class="tabs grey lighten-5 orange-text z-depth-1" id="login-modal-tabs">
+                            <li class="tab col s6"><a clss="orange-text active" href="#login-tab">Login</a></li>
                             <li class="tab col s6"><a href="#register-tab">Register</a></li>
                         </ul>
                     </div>
                     <div id="login-tab" class="col s12">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input type="text" ng-model="login.username">
-                            <label for="login-input">Identifier</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">vpn_key</i>
-                            <input type="password" ng-model="login.password">
-                            <label for="password-input">Password</label>
-                        </div>
-                        <div class="modal-footer">
-                            <a ng-click="logMeIn()" class="btn indigo waves-effect">login</a>
-                            <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
-                        </div>
+                        <form ng-submit="logMeIn()">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input type="text" ng-model="login.username">
+                                <label for="login-input">Identifier</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input type="password" ng-model="login.password">
+                                <label for="password-input">Password</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn indigo waves-effect">login</button>
+                                <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                            </div>
+                        </form>
                     </div>
                     <div id="register-tab" class="col s12">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input type="text" ng-model="register.username">
-                            <label for="login-input">New identifier</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">vpn_key</i>
-                            <input type="password" ng-model="register.password">
-                            <label for="password-input">New password</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">vpn_key</i>
-                            <input type="password" ng-model="register.repeat">
-                            <label for="password-input">Repeat new password</label>
-                        </div>
-                        <div class="modal-footer">
-                            <a ng-click="registerMe()" class="btn indigo waves-effect">register</a>
-                            <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
-                        </div>
+                        <form ng-submit="registerMe()">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input type="text" ng-model="register.username">
+                                <label for="login-input">New identifier</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input type="password" ng-model="register.password">
+                                <label for="password-input">New password</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input type="password" ng-model="register.repeat">
+                                <label for="password-input">Repeat new password</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn indigo waves-effect">register</button>
+                                <a ng-click="resetLogin()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -128,8 +132,8 @@
                                     <p>{{post.body}}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a class="btn-scriptum-icon"><i class="material-icons">thumb_up</i></a>
-                                    <a class="btn-scriptum-icon"><i class="material-icons">thumb_down</i></a>
+                                    <a ng-click="likePost(post)" class="btn-scriptum-icon"><i class="material-icons amber-text text-lighten-1">thumb_up</i></a>
+                                    <a ng-click="dislikePost(post)" class="btn-scriptum-icon"><i class="material-icons">thumb_down</i></a>
                                     <div class="chip indigo-text">{{post.points}}</div>
                                     <a class="btn-scriptum-icon"><i class="material-icons right activator">comment</i></a>
                                 </div>
@@ -179,24 +183,26 @@
             </ul>
         </div>
         <div id="addpost-modal" class="modal modal-scriptum">
-            <div class="modal-content">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">subject</i>
-                        <input type="text" ng-model="newPost.title" length="30">
-                        <label for="title-input">Title</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">create</i>
-                        <textarea type="text" ng-model="newPost.body" class="materialize-textarea" length="250"></textarea>
-                        <label for="content-input">Content</label>
+            <form ng-submit="addPost()">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">subject</i>
+                            <input type="text" ng-model="newPost.title" length="30">
+                            <label for="title-input">Title</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">create</i>
+                            <textarea type="text" ng-model="newPost.body" class="materialize-textarea" length="250"></textarea>
+                            <label for="content-input">Content</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <a ng-click="addPost()" class="btn indigo waves-effect">add post</a>
-                <a ng-click="resetPost()" class="btn-flat modal-action modal-close waves-effect waves-red">close</a>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn indigo waves-effect">add post</button>
+                    <a ng-click="resetPost()" class="btn-flat waves-effect waves-red">close</a>
+                </div>
+            </form>
         </div>
     </div>
 </body>
