@@ -47,6 +47,10 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.likePost = function(post) {
+        if (!auth.isLoggedIn()) {
+            Materialize.toast('You need to log in to be able to vote!', 4000);
+            return;
+        }
         posts.like(post).then(function(finished) {
             post.points = finished.data.points;
             post.liking = finished.data.liking;
@@ -55,6 +59,10 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.dislikePost = function(post) {
+        if (!auth.isLoggedIn()) {
+            Materialize.toast('You need to log in to be able to vote!', 4000);
+            return;
+        }
         posts.dislike(post).then(function(finished) {
             post.points = finished.data.points;
             post.liking = finished.data.liking;
@@ -76,11 +84,13 @@ var HomeCtrl = function($scope, posts, auth) {
             Materialize.toast('Logged in!', 4000);
             $scope.lockIcon = 'lock_open';
             $scope.resetLogin();
+            posts.getAll();
         });
     };
 
     $scope.logOut = function() {
         auth.logOut();
+        posts.getAll();
         $scope.lockIcon = 'lock_outline';
         Materialize.toast('Logged out!', 4000);
     };
