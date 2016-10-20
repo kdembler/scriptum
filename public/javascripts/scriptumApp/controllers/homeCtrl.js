@@ -46,6 +46,21 @@ var HomeCtrl = function($scope, posts, auth) {
         });
     };
 
+    $scope.addComment = function(post) {
+        console.log('bam');
+        console.log(post);
+        console.log(post.newCommentBody);
+        if (!post.newCommentBody || post.newCommentBody === '') return;
+        console.log('bambam');
+        return;
+        posts.addComment(post, {
+            body: $scope.newCommentBody
+        }).success(function(comment) {
+            $scope.post.comments.push(comment);
+        });
+        $scope.newCommentBody = '';
+    };
+
     $scope.likePost = function(post) {
         if (!auth.isLoggedIn()) {
             Materialize.toast('You need to log in to be able to vote!', 4000);

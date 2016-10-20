@@ -140,14 +140,16 @@
                                 <div class="card-reveal">
                                     <span class="card-title indigo-text">Comments <i class="material-icons right">close</i></span>
                                     <div class="row">
-                                        <div class="input-field col s11 l12">
-                                            <i class="material-icons prefix">message</i>
-                                            <input id="comment-input" type="text" length="100">
-                                            <label for="comment-input">Join the discussion...</label>
-                                        </div>
-                                        <div class="col s1">
-                                            <a class="btn-floating btn-scriptum-submit waves-effect waves-light indigo"><i class="material-icons">send</i></a>
-                                        </div>
+                                        <form ng-submit="addComment(post)">
+                                            <div class="input-field col s11 l12">
+                                                <i class="material-icons prefix">message</i>
+                                                <input ng-model="post.newCommentBody" id="comment-input" type="text" length="100">
+                                                <label for="comment-input">Join the discussion...</label>
+                                            </div>
+                                            <div class="col s1">
+                                                <button type="submit" class="btn-floating btn-scriptum-submit waves-effect waves-light indigo"><i class="material-icons">send</i></button>
+                                            </div>
+                                        </form>
                                     </div>
                                     <ul class="collection">
                                         <li class="collection-item avatar" ng-repeat="comment in post.comments">
