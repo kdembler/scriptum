@@ -1,0 +1,14 @@
+{
+    "name": "scriptum",
+    "short_name": "scriptum",
+    "icons": [
+        {
+            "src": "android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#5d6cba",
+    "background_color": "#9e9e9e",
+    "display": "standalone"
+}
