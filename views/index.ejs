@@ -125,7 +125,7 @@
             <div class="section">
                 <div class="container">
                     <div class="row">
-                        <div class="col s12 l12" ng-repeat="post in posts">
+                        <div class="col s12 l12" ng-repeat="post in posts | orderBy:'-points'">
                             <div class="card indigo">
                                 <div class="card-content white-text">
                                     <span class="card-title">{{post.title}}</span>
@@ -178,7 +178,6 @@
                     <a id="scrolltop-button" class="btn-floating blue" ng-click="scrollToTop()"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li ng-show="isLoggedIn()">
-                    <!-- <a id="addpost-activator" class="btn-floating red darken-1"><i class="material-icons">add</i></a> -->
                     <button data-target="addpost-modal" class="btn-floating modal-trigger red darkien-1"><i class="material-icons">add</i></button>
                 </li>
             </ul>
