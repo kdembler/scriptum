@@ -6,6 +6,9 @@ var CommentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    username: {
+        type: String
+    },
     post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
@@ -21,10 +24,7 @@ var CommentSchema = new mongoose.Schema({
 });
 
 CommentSchema.methods.isLiking = function(user) {
-    if (~this.likes.indexOf(user._id))
-        return true;
-    else
-        return false;
+    return ~this.likes.indexOf(user._id);
 };
 
 CommentSchema.methods.like = function(user, cb) {
@@ -38,5 +38,14 @@ CommentSchema.methods.like = function(user, cb) {
     }
     this.save(cb);
 };
+
+CommentSchema.methods.toJSON = function(user) {
+    var obj = this.toObject();
+    if (user) {
+        obj.liking = this.isLiking(user) ? 1 : 0;
+    }
+    delete obj.likes;
+    return obj;
+}
 
 mongoose.model('Comment', CommentSchema);

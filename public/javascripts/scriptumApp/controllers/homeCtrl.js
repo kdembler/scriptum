@@ -47,18 +47,28 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.addComment = function(post) {
-        console.log('bam');
-        console.log(post);
-        console.log(post.newCommentBody);
         if (!post.newCommentBody || post.newCommentBody === '') return;
-        console.log('bambam');
-        return;
         posts.addComment(post, {
-            body: $scope.newCommentBody
+            body: post.newCommentBody
         }).success(function(comment) {
-            $scope.post.comments.push(comment);
+            post.comments.push(comment);
         });
-        $scope.newCommentBody = '';
+        post.newCommentBody = '';
+    };
+
+    $scope.likeComment = function(post, comment) {
+        if (!auth.isLoggedIn()) {
+            Materialize.toast('You need to log in to be able to vote!', 4000);
+            return;
+        }
+        posts.likeComment(post, comment)
+            .success(function(data) {
+                console.log(data);
+                post.comments = post.comments.map(function (comment) {
+                    if (comment._id === data._id) return data;
+                    return comment;
+                })
+            })
     };
 
     $scope.likePost = function(post) {
@@ -85,11 +95,11 @@ var HomeCtrl = function($scope, posts, auth) {
     };
 
     $scope.isLikingPost = function(post) {
-        return post.liking == 1;
+        return post.liking === 1;
     };
 
     $scope.isDislikingPost = function(post) {
-        return post.liking == -1;
+        return post.liking === -1;
     };
 
     $scope.logMeIn = function() {

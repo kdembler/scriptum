@@ -60,24 +60,22 @@ PostSchema.methods.dislike = function(user, cb) {
 };
 
 PostSchema.methods.isLiking = function(user) {
-    if (~this.likes.indexOf(user._id))
-        return true;
-    else
-        return false;
+    return ~this.likes.indexOf(user._id);
 };
 
 PostSchema.methods.isDisliking = function(user) {
-    if (~this.dislikes.indexOf(user._id))
-        return true;
-    else
-        return false;
+    return ~this.dislikes.indexOf(user._id);
 };
 
-
-PostSchema.methods.toJSON = function() {
+PostSchema.methods.toJSON = function(user) {
     var obj = this.toObject();
     delete obj.likes;
     delete obj.dislikes;
+    if (user) {
+        obj.liking = 0;
+        if (this.isLiking(user)) obj.liking = 1;
+        if (this.isDisliking(user)) obj.liking = -1;
+    }
     return obj;
 };
 

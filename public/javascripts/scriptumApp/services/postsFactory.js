@@ -43,10 +43,7 @@ var PostsFac = function($http, auth) {
     };
 
     fac.likeComment = function(post, comment) {
-        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/like', null, getAuthHeader())
-            .success(function(data) {
-                comment = data;
-            });
+        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/like', null, getAuthHeader());
     };
     return fac;
 };

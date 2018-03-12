@@ -19,7 +19,7 @@ var auth = jwt({
     credentialsRequired: true
 });
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.render('index', {
         title: 'Express'
     });
@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 router.param('post', function(req, res, next, id) {
     Post.findById(id, function(err, post) {
         if (err) return next(err);
-        if (!post) return next(new Error('can\'t find post'));
+        if (!post) return next(new Error("can't find post"));
 
         req.post = post;
         return next();
@@ -38,7 +38,7 @@ router.param('post', function(req, res, next, id) {
 router.param('comment', function(req, res, next, id) {
     Comment.findById(id, function(err, comment) {
         if (err) return next(err);
-        if (!comment) return next(new Error('can\'t find comment'));
+        if (!comment) return next(new Error("can't find comment"));
 
         req.comment = comment;
         return next();
@@ -50,17 +50,12 @@ router.get('/posts', authNR, function(req, res, next) {
         if (err) return next(err);
 
         var response = [];
-        posts.forEach(function(post, index, array) {
-            response.push(post.toJSON());
-
-            var liking = 0;
-            if(req.payload) {
-                if (post.isLiking(req.payload))
-                    liking = 1;
-                else if (post.isDisliking(req.payload))
-                    liking = -1;
-            }
-            response[index].liking = liking;
+        posts.forEach(function(post) {
+            var rpost = post.toJSON(req.payload);
+            rpost.comments = post.comments.map(function (comment) {
+                return comment.toJSON(req.payload);
+            })
+            response.push(rpost);
         });
         res.json(response);
     });
@@ -69,7 +64,6 @@ router.get('/posts', authNR, function(req, res, next) {
 router.post('/posts', auth, function(req, res, next) {
     var post = new Post(req.body);
 
-    console.log(req.payload);
     post.author = req.payload._id;
 
     post.save(function(err, post) {
@@ -81,28 +75,6 @@ router.post('/posts', auth, function(req, res, next) {
         res.json(post);
     });
 });
-
-// router.get('/posts/:post', auth, function(req, res, next) {
-//     req.post.populate('comments', function(err, post) {
-//         if (err) return next(err);
-
-//         if (post.isLiking(req.payload))
-//             post.liking = 1;
-//         else if (post.isDisliking(req.payload))
-//             post.liking = -1;
-//         else
-//             post.liking = 0;
-//         res.json(post);
-//     });
-// });
-
-// router.get('/posts/:post', function(req, res, next) {
-//     req.post.populate('comments', function(err, post) {
-//         if (err) return next(err);
-
-//         res.json(post);
-//     });
-// });
 
 router.put('/posts/:post/like', auth, function(req, res, next) {
     req.post.like(req.payload, function(err, post) {
@@ -133,18 +105,20 @@ router.put('/posts/:post/dislike', auth, function(req, res, next) {
 });
 
 router.post('/posts/:post/comments', auth, function(req, res, next) {
-    var comment = new Comment(req.body);
+    var comment = new Comment();
+    comment.body = req.body.body;
     comment.post = req.post;
-    comment.author = req.payload.username;
+    comment.author = req.payload._id;
+    comment.username = req.payload.username;
 
     comment.save(function(err, comment) {
         if (err) return next(err);
 
         req.post.comments.push(comment);
-        req.post.save(function(err, post) {
+        req.post.save(function(err) {
             if (err) return next(err);
 
-            res.json(comment);
+            res.json(comment.toJSON());
         });
     });
 });
@@ -153,12 +127,7 @@ router.put('/posts/:post/comments/:comment/like', auth, function(req, res, next)
     req.comment.like(req.payload, function(err, comment) {
         if (err) return next(err);
 
-        if (comment.isLiking(req.payload))
-            comment.liking = 1;
-        else
-            comment.liking = 0;
-
-        res.json(comment);
+        res.json(comment.toJSON(req.payload));
     });
 });
 
@@ -167,7 +136,7 @@ router.post('/register', function(req, res, next) {
         return res.status(400).json({
             message: 'Please fill out all fields.'
         });
-    if (req.body.password != req.body.repeat)
+    if (req.body.password !== req.body.repeat)
         return res.status(400).json({
             message: 'Passwords do not match.'
         });

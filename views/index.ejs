@@ -132,8 +132,8 @@
                                     <p>{{post.body}}</p>
                                 </div>
                                 <div class="card-action">
-                                    <a ng-click="likePost(post)" class="btn-scriptum-icon"><i class="material-icons text-accent-2" ng-class="post.liking == 1 ? 'orange-text' : 'white-text'">thumb_up</i></a>
-                                    <a ng-click="dislikePost(post)" class="btn-scriptum-icon"><i class="material-icons text-accent-2" ng-class="post.liking == -1 ? 'orange-text' : 'white-text'">thumb_down</i></a>
+                                    <a ng-click="likePost(post)" class="btn-scriptum-icon"><i class="material-icons text-accent-2" ng-class="post.liking === 1 ? 'orange-text' : 'white-text'">thumb_up</i></a>
+                                    <a ng-click="dislikePost(post)" class="btn-scriptum-icon"><i class="material-icons text-accent-2" ng-class="post.liking === -1 ? 'orange-text' : 'white-text'">thumb_down</i></a>
                                     <div class="chip indigo-text">{{post.points}}</div>
                                     <a class="btn-scriptum-icon"><i class="material-icons right activator">comment</i></a>
                                 </div>
@@ -152,13 +152,13 @@
                                         </form>
                                     </div>
                                     <ul class="collection">
-                                        <li class="collection-item avatar" ng-repeat="comment in post.comments">
+                                        <li class="collection-item avatar" ng-repeat="comment in post.comments | orderBy:'-points'">
                                             <img class="circle" src="images/user43.png" alt="">
-                                            <span class="title">{{comment.author}}</span>
+                                            <span class="title">{{comment.username}}</span>
                                             <p>{{comment.body}}</p>
                                             <div class="secondary-content">
                                                 <div class="chip indigo white-text">{{comment.points}}</div>
-                                                <a class="btn-scriptum-icon"><i class="material-icons black-text">grade</i></a>
+                                                <a class="btn-scriptum-icon" ng-click="likeComment(post, comment)"><i class="material-icons" ng-class="comment.liking === 1 ? 'orange-text' : 'black-text'">grade</i></a>
                                             </div>
                                         </li>
                                     </ul>
