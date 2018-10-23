@@ -28,6 +28,7 @@ var PostSchema = new mongoose.Schema({
 PostSchema.methods.like = function(user, cb) {
     var likesIndex = this.likes.indexOf(user._id);
     var dislikesIndex = this.dislikes.indexOf(user._id);
+    console.log('liking')
     if (~likesIndex) {
         this.likes.splice(likesIndex, 1);
         this.points -= 1;
@@ -36,7 +37,8 @@ PostSchema.methods.like = function(user, cb) {
             this.dislikes.splice(dislikesIndex, 1);
             this.points += 1;
         }
-        this.likes.push(user._id);
+        this.likes = this.likes.concat([user._id]);
+        console.log(this.likes);
         this.points += 1;
     }
     this.save(cb);
@@ -53,7 +55,7 @@ PostSchema.methods.dislike = function(user, cb) {
             this.likes.splice(likesIndex, 1);
             this.points -= 1;
         }
-        this.dislikes.push(user._id);
+        this.dislikes = this.dislikes.concat([user._id]);
         this.points -= 1;
     }
     this.save(cb);

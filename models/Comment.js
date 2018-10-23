@@ -33,7 +33,7 @@ CommentSchema.methods.like = function(user, cb) {
         this.likes.splice(likesIndex, 1);
         this.points -= 1;
     } else {
-        this.likes.push(user._id);
+        this.likes = this.likes.concat([user._id]);
         this.points += 1;
     }
     this.save(cb);

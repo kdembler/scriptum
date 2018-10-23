@@ -63,7 +63,6 @@ var HomeCtrl = function($scope, posts, auth) {
         }
         posts.likeComment(post, comment)
             .success(function(data) {
-                console.log(data);
                 post.comments = post.comments.map(function (comment) {
                     if (comment._id === data._id) return data;
                     return comment;
@@ -79,7 +78,6 @@ var HomeCtrl = function($scope, posts, auth) {
         posts.like(post).then(function(finished) {
             post.points = finished.data.points;
             post.liking = finished.data.liking;
-            console.log(post);
         });
     };
 

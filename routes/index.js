@@ -114,7 +114,7 @@ router.post('/posts/:post/comments', auth, function(req, res, next) {
     comment.save(function(err, comment) {
         if (err) return next(err);
 
-        req.post.comments.push(comment);
+        req.post.comments = req.post.comments.concat([comment]);
         req.post.save(function(err) {
             if (err) return next(err);
 
